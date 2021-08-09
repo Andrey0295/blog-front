@@ -19,7 +19,7 @@ const AuthNav = () => {
     <div>
       <a
         // href="https://frozen-cliffs-66247.herokuapp.com/auth/github"
-        href="http://localhost:3000/api/v1/auth/github"
+        href="https://infinite-escarpment-83664.herokuapp.com/api/v1/auth/github"
         style={styles.link}
       >
         Sign up/in with GitHub

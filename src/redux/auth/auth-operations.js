@@ -4,7 +4,7 @@ import axios from 'axios';
 import authActions from './auth-action';
 
 // axios.defaults.baseURL = 'https://frozen-cliffs-66247.herokuapp.com';
-axios.defaults.baseURL = 'http://localhost:3000';
+axios.defaults.baseURL = 'https://infinite-escarpment-83664.herokuapp.com';
 
 const token = {
   set(token) {
