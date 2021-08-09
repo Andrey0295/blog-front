@@ -5,7 +5,7 @@ import shortid from 'shortid';
 import articlesOperations from '../../redux/articles/articles-operations';
 import articlesSelectors from '../../redux/articles/articles-selectors';
 
-class ArticlesForm extends Component {
+class ArticlesEditForm extends Component {
   state = {
     title: '',
     body: '',
@@ -20,13 +20,19 @@ class ArticlesForm extends Component {
   };
 
   onFormSubmit = e => {
-    const { title } = this.state;
-    const { allArticles, onSubmit, onCloseAfterSubmit } = this.props;
+    const { title, body } = this.state;
+    const { allArticles, articleId, onSubmit, onCloseAfterSubmit } = this.props;
     e.preventDefault();
+
+    const updateData = {
+      title,
+      body,
+      articleId,
+    };
 
     allArticles.filter(article => article.title === title).length > 0
       ? alert(`${title} is already in articles-list`)
-      : onSubmit(this.state);
+      : onSubmit(updateData);
 
     this.setState({
       title: '',
@@ -78,7 +84,7 @@ class ArticlesForm extends Component {
           </div>
 
           <button type="submit" className="btn btn-success btn-block">
-            Add article
+            Save changes
           </button>
         </form>
       </>
@@ -90,8 +96,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  onSubmit: ({ title, body }) =>
-    dispatch(articlesOperations.addArticle({ title, body })),
+  onSubmit: updateData => dispatch(articlesOperations.editArticle(updateData)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(ArticlesForm);
+export default connect(mapStateToProps, mapDispatchToProps)(ArticlesEditForm);
+// export default ArticlesEditForm;

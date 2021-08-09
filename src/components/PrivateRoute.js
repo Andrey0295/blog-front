@@ -6,19 +6,25 @@ import authSelectors from '../redux/auth/auth-selectors';
 const PrivateRoute = ({
   component: Component,
   isAuthenticated,
+  isLoading,
   redirectTo,
   ...routeProps
 }) => (
   <Route
     {...routeProps}
     render={props =>
-      isAuthenticated ? <Component {...props} /> : <Redirect to={redirectTo} />
+      isAuthenticated && !isLoading ? (
+        <Component {...props} />
+      ) : (
+        <Redirect to={redirectTo} />
+      )
     }
   />
 );
 
 const mapStateToProps = state => ({
   isAuthenticated: authSelectors.getIsAuthenticated(state),
+  isLoading: authSelectors.getLoadingStatus(state),
 });
 
 export default connect(mapStateToProps)(PrivateRoute);

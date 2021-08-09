@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 
 const styles = {
   homeStyles: {
@@ -11,14 +11,14 @@ const styles = {
   },
 };
 
-const HomeView = () => {
-  return (
-    <div style={styles.homeStyles}>
-      <h1 style={styles.title}>Home page</h1>
-
-      {/* <button onClick={handleButtonClick}>GitHub Btn</button> */}
-    </div>
-  );
-};
+class HomeView extends Component {
+  render() {
+    return (
+      <div style={styles.homeStyles}>
+        <h1 style={styles.title}>Home page</h1>
+      </div>
+    );
+  }
+}
 
 export default HomeView;

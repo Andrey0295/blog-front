@@ -1,56 +1,98 @@
 /* eslint-disable import/no-anonymous-default-export */
 import axios from 'axios';
+
 import authActions from './auth-action';
 
-axios.defaults.baseURL = 'https://frozen-cliffs-66247.herokuapp.com';
-axios.defaults.headers.post['Content-Type'] = 'application/json';
+// axios.defaults.baseURL = 'https://frozen-cliffs-66247.herokuapp.com';
+axios.defaults.baseURL = 'http://localhost:3000';
 
 const token = {
   set(token) {
-    axios.defaults.headers.common.Authorization = token;
+    axios.defaults.headers = { ...token };
   },
   unset() {
-    axios.defaults.headers.common.Authorization = '';
+    axios.defaults.headers = '';
   },
 };
 
 const register = registerData => dispatch => {
-  dispatch(authActions.registerRequest());
-
   axios
-    .post('/signup', JSON.stringify({ user: registerData }))
+    .post('/api/v1/auth', registerData)
     .then(res => {
-      token.set(res.headers.authorization);
+      token.set(res.headers);
       dispatch(authActions.registerSuccess(res));
     })
-    .catch(({ message }) => dispatch(authActions.registerError(message)));
+    .catch(error => {
+      dispatch(
+        authActions.registerError(error.response.data.errors.full_messages[0]),
+      );
+    });
 };
 
 const login = loginData => dispatch => {
   dispatch(authActions.loginRequest());
 
   axios
-    .post('/login', JSON.stringify({ user: loginData }))
+    .post('api/v1/auth/sign_in', loginData)
     .then(res => {
-      token.set(res.headers.authorization);
+      token.set(res.headers);
       dispatch(authActions.loginSuccess(res));
     })
-    .catch(({ message }) => dispatch(authActions.loginError(message)));
+    .catch(error => {
+      dispatch(authActions.loginError(error.response.data.errors[0]));
+    });
 };
 
 const logout = () => dispatch => {
   dispatch(authActions.logoutRequest());
 
   axios
-    .delete('/logout')
+    .delete('/api/v1/auth/sign_out')
     .then(() => {
       token.unset();
+      localStorage.clear();
+
       dispatch(authActions.logoutSuccess());
     })
-    .catch(({ message }) => dispatch(authActions.logoutError(message)));
+    .catch(error => {
+      console.log(error.response);
+      dispatch(authActions.logoutError(error));
+    });
 };
 
 const getCurrentUser = () => (dispatch, getState) => {
+  let params = new URL(document.location).searchParams;
+  let rawToken = params.get('token');
+
+  if (rawToken) {
+    const providerToken = JSON.parse(rawToken);
+    dispatch(authActions.providerAuthSuccess(providerToken));
+  }
+
+  const {
+    auth: { providerToken: persistProviderToken },
+  } = getState();
+  if (persistProviderToken) {
+    dispatch(authActions.getCurrentUserRequest());
+    let headers = {
+      'access-token': persistProviderToken['token'],
+      expiry: persistProviderToken.expiry,
+      client: persistProviderToken.client,
+      uid: persistProviderToken.uid,
+      'token-type': 'Bearer',
+    };
+
+    token.set(headers);
+    axios
+      .get('/me', {
+        headers: headers,
+      })
+      .then(res => {
+        dispatch(authActions.getCurrentUserSuccess(res));
+      })
+      .catch(err => dispatch(authActions.getCurrentUserError(err)));
+  }
+
   const {
     auth: { token: persistToken },
   } = getState();
@@ -59,15 +101,14 @@ const getCurrentUser = () => (dispatch, getState) => {
   }
 
   token.set(persistToken);
-  dispatch(authActions.getCurrentUserRequest());
 
+  dispatch(authActions.getCurrentUserRequest());
   axios
-    .get('/current_user')
+    .get('/me')
     .then(res => {
       dispatch(authActions.getCurrentUserSuccess(res));
-      console.log(res);
     })
-    .catch(({ message }) => dispatch(authActions.getCurrentUserError(message)));
+    .catch(err => dispatch(authActions.getCurrentUserError(err)));
 };
 
 export default {

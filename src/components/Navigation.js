@@ -18,28 +18,41 @@ const styles = {
   },
 };
 
-const Navigation = ({ isAuthenticated }) => {
+const Navigation = ({ isAuthenticated, isLoading }) => {
   return (
     <nav>
       <NavLink exact to="/" style={styles.link} activeStyle={styles.activeLink}>
         Home
       </NavLink>
-      {isAuthenticated && (
+      {isAuthenticated && !isLoading && (
         <NavLink
           exact
           to="/articles"
           style={styles.link}
           activeStyle={styles.activeLink}
         >
-          Articles
+          All articles
         </NavLink>
       )}
-      {isAuthenticated && <Filter />}
+
+      {isAuthenticated && !isLoading && (
+        <NavLink
+          exact
+          to="/my-articles"
+          style={styles.link}
+          activeStyle={styles.activeLink}
+        >
+          My articles
+        </NavLink>
+      )}
+
+      {isAuthenticated && !isLoading && <Filter />}
     </nav>
   );
 };
 
 const mapStateToProps = state => ({
   isAuthenticated: authSelectors.getIsAuthenticated(state),
+  isLoading: authSelectors.getLoadingStatus(state),
 });
 export default connect(mapStateToProps, null)(Navigation);

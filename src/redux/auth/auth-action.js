@@ -5,6 +5,10 @@ const registerRequest = createAction('auth/registerRequest');
 const registerSuccess = createAction('auth/registerSuccess');
 const registerError = createAction('auth/registerError');
 
+const providerAuthRequest = createAction('auth/providerAuthRequest');
+const providerAuthSuccess = createAction('auth/providerAuthSuccess');
+const providerAuthError = createAction('auth/providerAuthError');
+
 const loginRequest = createAction('auth/loginRequest');
 const loginSuccess = createAction('auth/loginSuccess');
 const loginError = createAction('auth/loginError');
@@ -16,6 +20,8 @@ const logoutError = createAction('auth/logoutError');
 const getCurrentUserRequest = createAction('auth/getCurrentUserRequest');
 const getCurrentUserSuccess = createAction('auth/getCurrentUserSuccess');
 const getCurrentUserError = createAction('auth/getCurrentUserError');
+
+const resetError = createAction('auth/resetError');
 
 export default {
   registerRequest,
@@ -30,4 +36,8 @@ export default {
   getCurrentUserRequest,
   getCurrentUserSuccess,
   getCurrentUserError,
+  providerAuthRequest,
+  providerAuthSuccess,
+  providerAuthError,
+  resetError,
 };

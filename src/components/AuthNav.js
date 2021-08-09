@@ -14,32 +14,35 @@ const styles = {
   },
 };
 
-const AuthNav = () => (
-  <div>
-    <a
-      href="https://frozen-cliffs-66247.herokuapp.com/auth/github"
-      style={styles.link}
-    >
-      Sign in with GitHub
-    </a>
+const AuthNav = () => {
+  return (
+    <div>
+      <a
+        // href="https://frozen-cliffs-66247.herokuapp.com/auth/github"
+        href="http://localhost:3000/api/v1/auth/github"
+        style={styles.link}
+      >
+        Sign up/in with GitHub
+      </a>
 
-    <NavLink
-      to="/register"
-      exact
-      style={styles.link}
-      activeStyle={styles.activeLink}
-    >
-      Registration
-    </NavLink>
-    <NavLink
-      to="/login"
-      exact
-      style={styles.link}
-      activeStyle={styles.activeLink}
-    >
-      Login
-    </NavLink>
-  </div>
-);
+      <NavLink
+        to="/register"
+        exact
+        style={styles.link}
+        activeStyle={styles.activeLink}
+      >
+        Registration
+      </NavLink>
+      <NavLink
+        to="/login"
+        exact
+        style={styles.link}
+        activeStyle={styles.activeLink}
+      >
+        Login
+      </NavLink>
+    </div>
+  );
+};
 
 export default AuthNav;

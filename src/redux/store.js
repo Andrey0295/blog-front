@@ -14,18 +14,18 @@ import articlesReducer from './articles/articles-reducers';
 
 import authReducer from './auth/auth-reducers';
 
-const middleware = [
-  ...getDefaultMiddleware({
-    serializableCheck: {
-      ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-    },
-  }),
-];
+// const middleware = [
+//   ...getDefaultMiddleware({
+//     serializableCheck: {
+//       ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+//     },
+//   }),
+// ];
 
 const authPersistConfig = {
   key: 'auth-key',
   storage,
-  whitelist: ['token'],
+  whitelist: ['token', 'providerToken'],
 };
 
 const store = configureStore({
@@ -33,7 +33,9 @@ const store = configureStore({
     auth: persistReducer(authPersistConfig, authReducer),
     articles: articlesReducer,
   },
-  middleware,
+  middleware: getDefaultMiddleware({
+    serializableCheck: false,
+  }),
 
   devTools: true,
 });

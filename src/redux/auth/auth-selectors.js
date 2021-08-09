@@ -3,4 +3,13 @@ const getIsAuthenticated = state => state.auth.isAuthenticated;
 
 const getCurrentUser = state => state.auth.user;
 
-export default { getIsAuthenticated, getCurrentUser };
+const getLoadingStatus = state => state.auth.loading;
+
+const getErrorData = state => state.auth.error;
+
+export default {
+  getIsAuthenticated,
+  getCurrentUser,
+  getLoadingStatus,
+  getErrorData,
+};

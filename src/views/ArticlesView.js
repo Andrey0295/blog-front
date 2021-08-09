@@ -3,10 +3,7 @@ import { connect } from 'react-redux';
 
 import articlesOperations from '../redux/articles/articles-operations';
 
-import ArticlesForm from '../components/ArticlesForm/ArticlesForm';
 import ArticlesList from '../components/ArticlesList/ArticlesList';
-
-import styles from './ArticlesView.module.css';
 
 class ArticlesView extends Component {
   componentDidMount() {
@@ -15,15 +12,9 @@ class ArticlesView extends Component {
   }
   render() {
     return (
-      <div className={styles.mainBlock}>
+      <div>
         <div>
-          <ArticlesForm onSubmit={this.handleContactsData} />
-        </div>
-
-        <div className={styles.articlesBlock}>
-          <h1 className={styles.title}>Articles</h1>
-
-          <ArticlesList />
+          <ArticlesList isAuthor={false} />
         </div>
       </div>
     );

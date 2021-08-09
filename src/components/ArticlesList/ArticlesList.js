@@ -7,18 +7,18 @@ import articlesOperations from '../../redux/articles/articles-operations';
 
 import ArticlesListItem from './ArticlesListItem';
 
-import styles from './ArticlesListItem.module.css';
-
-const ArticlesList = ({ articlesData, onDelete }) => {
+const ArticlesList = ({ articlesData, onDelete, onEdit, isAuthor }) => {
   return (
-    <ul className={styles.list}>
-      {articlesData.map(({ title, id, body }) => (
+    <ul className="mb-0 row list-group">
+      {articlesData.map(({ title, id, body }, idx) => (
         <ArticlesListItem
           title={title}
           body={body}
           key={id}
           articleId={id}
           onDelete={onDelete}
+          isAuthor={isAuthor}
+          idx={idx}
         />
       ))}
     </ul>

@@ -2,6 +2,8 @@
 import axios from 'axios';
 import actions from './articles-actions';
 
+axios.defaults.baseURL = 'http://localhost:3000';
+
 const fetchArticles = () => dispatch => {
   dispatch(actions.fetchArticlesRequest);
 
@@ -9,6 +11,15 @@ const fetchArticles = () => dispatch => {
     .get('/articles')
     .then(({ data }) => dispatch(actions.fetchArticlesSuccess(data)))
     .catch(({ message }) => dispatch(actions.fetchArticlesError(message)));
+};
+
+const fetchMyArticles = () => dispatch => {
+  dispatch(actions.fetchMyArticlesRequest);
+
+  axios
+    .get('/my-articles')
+    .then(({ data }) => dispatch(actions.fetchMyArticlesSuccess(data)))
+    .catch(({ message }) => dispatch(actions.fetchMyArticlesError(message)));
 };
 
 const addArticle =
@@ -24,6 +35,25 @@ const addArticle =
       .catch(({ message }) => dispatch(actions.addArticlesError(message)));
   };
 
+const editArticle =
+  ({ articleId, title, body }) =>
+  dispatch => {
+    const article = {
+      title,
+      body,
+    };
+
+    dispatch(actions.editArticlesRequest());
+
+    axios
+      .put(`/articles/${articleId}`, article)
+      .then(({ data }) => {
+        dispatch(actions.editArticlesSuccess(data));
+        console.log(data);
+      })
+      .catch(error => console.log(error));
+  };
+
 const deleteArticle = articleId => dispatch => {
   dispatch(actions.deleteArticlesRequest());
 
@@ -33,4 +63,10 @@ const deleteArticle = articleId => dispatch => {
     .catch(({ message }) => dispatch(actions.deleteArticlesError(message)));
 };
 
-export default { addArticle, fetchArticles, deleteArticle };
+export default {
+  addArticle,
+  editArticle,
+  fetchArticles,
+  fetchMyArticles,
+  deleteArticle,
+};
