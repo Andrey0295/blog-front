@@ -29,7 +29,7 @@ class MyArticlesView extends Component {
 
   render() {
     return (
-      <div className="row d-flex justify-content-center align-items-center h-100">
+      <div className="row d-flex justify-content-center align-items-center h-100 relative">
         {this.state.showModal && (
           <Overlay onClose={this.onCloseModal}>
             <ArticlesForm onCloseAfterSubmit={this.onCloseModal} />

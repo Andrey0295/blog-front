@@ -9,7 +9,7 @@ import UserMenu from '../UserMenu/UserMenu';
 
 const AppBar = ({ isAuthenticated, isLoading }) => {
   return (
-    <header className="navbar navbar-expand-lg navbar-light bg-dark bg-gradient mb-5 d-flex justify-content-between">
+    <header className="navbar navbar-expand-lg navbar-light bg-dark bg-gradient mb-5 d-flex justify-content-between fixed-top">
       <Navigation />
       {isAuthenticated && !isLoading ? <UserMenu /> : <AuthNav />}
     </header>

@@ -19,6 +19,12 @@ class RegisterForm extends Component {
     password: '',
   };
 
+  componentWillUnmount() {
+    if (this.props.isError) {
+      this.props.resetError();
+    }
+  }
+
   handleChange = ({ target: { name, value } }) => {
     this.setState({ [name]: value });
   };
@@ -55,7 +61,7 @@ class RegisterForm extends Component {
           }}
           validationSchema={SignupSchema}
         >
-          {({ errors, touched }) => (
+          {({ errors, touched, isValidating }) => (
             <Form onSubmit={this.handleSubmit}>
               <div className="form-outline mb-4">
                 <label className="form-label">
@@ -69,7 +75,7 @@ class RegisterForm extends Component {
                     className="form-control"
                     placeholder="Enter your email"
                   />
-                  {errors.email && touched.email ? (
+                  {this.state.email === '' ? (
                     <div>
                       <p className="text-danger ">{errors.email}</p>
                     </div>
@@ -89,10 +95,9 @@ class RegisterForm extends Component {
                     placeholder="Enter password (at least 6 symb)"
                     minLength="6"
                   />
-                  {errors.password && touched.password ? (
+                  {this.state.password === '' ? (
                     <div>
-                      {' '}
-                      <p className="text-danger">{errors.password}</p>
+                      <p className="text-danger ">{errors.password}</p>
                     </div>
                   ) : null}
                 </label>

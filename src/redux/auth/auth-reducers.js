@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
 import { createReducer } from '@reduxjs/toolkit';
 import authActions from './auth-action';
+import articlesActions from '../articles/articles-actions';
 
 const initialUserState = { email: null };
 
@@ -45,6 +46,21 @@ const loading = createReducer(false, {
   [authActions.getCurrentUserRequest]: () => true,
   [authActions.getCurrentUserSuccess]: () => false,
   [authActions.getCurrentUserError]: () => false,
+  [articlesActions.fetchArticlesRequest]: () => true,
+  [articlesActions.fetchArticlesSuccess]: () => false,
+  [articlesActions.fetchArticlesError]: () => false,
+  [articlesActions.fetchMyArticlesRequest]: () => true,
+  [articlesActions.fetchMyArticlesSuccess]: () => false,
+  [articlesActions.fetchMyArticlesError]: () => false,
+  [articlesActions.addArticlesRequest]: () => true,
+  [articlesActions.addArticlesSuccess]: () => false,
+  [articlesActions.addArticlesError]: () => false,
+  [articlesActions.editArticlesRequest]: () => true,
+  [articlesActions.editArticlesSuccess]: () => false,
+  [articlesActions.deleteArticlesError]: () => false,
+  [articlesActions.deleteArticlesRequest]: () => true,
+  [articlesActions.deleteArticlesSuccess]: () => false,
+  [articlesActions.deleteArticlesError]: () => false,
 });
 
 const error = createReducer(null, {

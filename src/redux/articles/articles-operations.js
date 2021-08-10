@@ -4,6 +4,8 @@ import actions from './articles-actions';
 
 axios.defaults.baseURL = 'https://infinite-escarpment-83664.herokuapp.com';
 
+// axios.defaults.baseURL = 'http://localhost:3000';
+
 const fetchArticles = () => dispatch => {
   dispatch(actions.fetchArticlesRequest);
 
@@ -49,9 +51,8 @@ const editArticle =
       .put(`/articles/${articleId}`, article)
       .then(({ data }) => {
         dispatch(actions.editArticlesSuccess(data));
-        console.log(data);
       })
-      .catch(error => console.log(error));
+      .catch(error => dispatch(actions.editArticlesError(error)));
   };
 
 const deleteArticle = articleId => dispatch => {

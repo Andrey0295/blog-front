@@ -3,8 +3,8 @@ import axios from 'axios';
 
 import authActions from './auth-action';
 
-// axios.defaults.baseURL = 'https://frozen-cliffs-66247.herokuapp.com';
 axios.defaults.baseURL = 'https://infinite-escarpment-83664.herokuapp.com';
+// axios.defaults.baseURL = 'http://localhost:3000';
 
 const token = {
   set(token) {
@@ -24,7 +24,9 @@ const register = registerData => dispatch => {
     })
     .catch(error => {
       dispatch(
-        authActions.registerError(error.response.data.errors.full_messages[0]),
+        authActions.registerError(
+          error.response?.data?.errors.full_messages[0],
+        ),
       );
     });
 };
@@ -39,7 +41,7 @@ const login = loginData => dispatch => {
       dispatch(authActions.loginSuccess(res));
     })
     .catch(error => {
-      dispatch(authActions.loginError(error.response.data.errors[0]));
+      dispatch(authActions.loginError(error.response?.data?.errors[0]));
     });
 };
 
@@ -55,7 +57,6 @@ const logout = () => dispatch => {
       dispatch(authActions.logoutSuccess());
     })
     .catch(error => {
-      console.log(error.response);
       dispatch(authActions.logoutError(error));
     });
 };

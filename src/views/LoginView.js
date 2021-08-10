@@ -37,6 +37,12 @@ class LoginView extends Component {
     }
   };
 
+  componentWillUnmount() {
+    if (this.props.isError) {
+      this.props.resetError();
+    }
+  }
+
   render() {
     return (
       <div>
@@ -69,7 +75,7 @@ class LoginView extends Component {
                     className="form-control"
                     placeholder="Enter your email"
                   />
-                  {errors.email && touched.email ? (
+                  {this.state.email === '' ? (
                     <div>
                       <p className="text-danger ">{errors.email}</p>
                     </div>
@@ -89,7 +95,7 @@ class LoginView extends Component {
                     placeholder="Enter password (at least 6 symb)"
                     minLength="6"
                   />
-                  {errors.password && touched.password ? (
+                  {this.state.password === '' ? (
                     <div>
                       <p className="text-danger ">{errors.password}</p>
                     </div>
