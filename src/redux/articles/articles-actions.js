@@ -23,6 +23,9 @@ const deleteArticlesError = createAction('articles/deleteArticlesError');
 
 const changeFilter = createAction('articles/changeFilter');
 
+const onEnableLoader = createAction('articles/onEnableLoader');
+const onDisableLoader = createAction('articles/onDisableLoader');
+
 export default {
   fetchArticlesRequest,
   fetchArticlesSuccess,
@@ -40,4 +43,6 @@ export default {
   deleteArticlesSuccess,
   deleteArticlesError,
   changeFilter,
+  onEnableLoader,
+  onDisableLoader,
 };

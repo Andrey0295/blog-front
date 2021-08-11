@@ -61,6 +61,8 @@ const loading = createReducer(false, {
   [articlesActions.deleteArticlesRequest]: () => true,
   [articlesActions.deleteArticlesSuccess]: () => false,
   [articlesActions.deleteArticlesError]: () => false,
+  [articlesActions.onEnableLoader]: () => true,
+  [articlesActions.onDisableLoader]: () => false,
 });
 
 const error = createReducer(null, {

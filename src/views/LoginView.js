@@ -19,38 +19,43 @@ class LoginView extends Component {
     password: '',
   };
 
+  componentWillUnmount() {
+    const { isError, resetError } = this.props;
+    if (isError) {
+      resetError();
+    }
+  }
+
   handleChange = ({ target: { name, value } }) => {
     this.setState({ [name]: value });
   };
 
   handleSubmit = e => {
+    const { onLogin } = this.props;
     e.preventDefault();
 
-    this.props.onLogin(this.state);
+    onLogin(this.state);
 
     this.setState({ name: '', email: '', password: '' });
   };
 
   onInputFocus = () => {
-    if (this.props.isError) {
-      this.props.resetError();
+    const { isError, resetError } = this.props;
+    if (isError) {
+      resetError();
     }
   };
 
-  componentWillUnmount() {
-    if (this.props.isError) {
-      this.props.resetError();
-    }
-  }
-
   render() {
+    const { isError } = this.props;
+    const { email, password } = this.state;
     return (
       <div>
         <h1>Login page</h1>
 
-        {this.props.isError && (
+        {isError && (
           <div className="alert alert-danger" role="alert">
-            {this.props.isError}
+            {isError}
           </div>
         )}
 
@@ -69,13 +74,13 @@ class LoginView extends Component {
                   <Field
                     name="email"
                     type="email"
-                    value={this.state.email}
+                    value={email}
                     onChange={this.handleChange}
                     onFocus={this.onInputFocus}
                     className="form-control"
                     placeholder="Enter your email"
                   />
-                  {this.state.email === '' ? (
+                  {email === '' ? (
                     <div>
                       <p className="text-danger ">{errors.email}</p>
                     </div>
@@ -88,14 +93,14 @@ class LoginView extends Component {
                   <Field
                     name="password"
                     type="password"
-                    value={this.state.password}
+                    value={password}
                     onFocus={this.onInputFocus}
                     onChange={this.handleChange}
                     className="form-control"
                     placeholder="Enter password (at least 6 symb)"
                     minLength="6"
                   />
-                  {this.state.password === '' ? (
+                  {password === '' ? (
                     <div>
                       <p className="text-danger ">{errors.password}</p>
                     </div>

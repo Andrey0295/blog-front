@@ -11,8 +11,6 @@ import PrivateRoute from './components/PrivateRoute';
 
 import AppBar from './components/AppBar/AppBar';
 import LoaderBlock from './components/LoaderBlock/LoaderBlock';
-// import Alert from '@material-ui/core/Alert';
-// import AlertTitle from '@material-ui/core/AlertTitle';
 
 const HomeView = lazy(() =>
   import('./views/HomeView' /* webpackChunkName: "home-view" */),
