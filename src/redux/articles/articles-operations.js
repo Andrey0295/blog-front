@@ -2,9 +2,8 @@
 import axios from 'axios';
 import actions from './articles-actions';
 
-axios.defaults.baseURL = 'https://infinite-escarpment-83664.herokuapp.com';
-
 // axios.defaults.baseURL = 'http://localhost:3000';
+axios.defaults.baseURL = 'https://infinite-escarpment-83664.herokuapp.com';
 
 const fetchArticles = () => dispatch => {
   dispatch(actions.fetchArticlesRequest);
