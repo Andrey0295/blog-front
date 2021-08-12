@@ -66,7 +66,8 @@ const getCurrentUser = () => (dispatch, getState) => {
   let rawToken = params.get('token');
 
   if (rawToken) {
-    const providerToken = JSON.parse(rawToken);
+    const decodeToken = atob(rawToken);
+    const providerToken = JSON.parse(decodeToken);
     dispatch(authActions.providerAuthSuccess(providerToken));
   }
 

@@ -12,7 +12,7 @@ const styles = {
     color: 'white',
   },
   activeLink: {
-    color: 'blue',
+    color: 'chartreuse',
   },
 };
 
