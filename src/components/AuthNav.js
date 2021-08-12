@@ -17,43 +17,52 @@ const styles = {
 };
 
 class AuthNav extends Component {
+  state = {
+    showLink: true,
+  };
+
   componentWillUnmount() {
     this.props.disableLoading();
   }
 
   handleLinkClick = () => {
+    this.setState({ showLink: false });
     this.props.enableLoading();
   };
 
   render() {
     return (
-      <div>
-        <a
-          onClick={this.handleLinkClick}
-          href="https://infinite-escarpment-83664.herokuapp.com/api/v1/auth/github"
-          // href="http://localhost:3000/api/v1/auth/github"
-          style={styles.link}
-        >
-          Sign up/in with GitHub
-        </a>
+      <>
+        {this.state.showLink && (
+          <div>
+            <a
+              onClick={this.handleLinkClick}
+              href="https://infinite-escarpment-83664.herokuapp.com/api/v1/auth/github"
+              // href="http://localhost:3000/api/v1/auth/github"
+              style={styles.link}
+            >
+              Sign up/in with GitHub
+            </a>
 
-        <NavLink
-          to="/register"
-          exact
-          style={styles.link}
-          activeStyle={styles.activeLink}
-        >
-          Registration
-        </NavLink>
-        <NavLink
-          to="/login"
-          exact
-          style={styles.link}
-          activeStyle={styles.activeLink}
-        >
-          Login
-        </NavLink>
-      </div>
+            <NavLink
+              to="/register"
+              exact
+              style={styles.link}
+              activeStyle={styles.activeLink}
+            >
+              Registration
+            </NavLink>
+            <NavLink
+              to="/login"
+              exact
+              style={styles.link}
+              activeStyle={styles.activeLink}
+            >
+              Login
+            </NavLink>
+          </div>
+        )}
+      </>
     );
   }
 }
