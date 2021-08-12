@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import articlesOperations from '../../redux/articles/articles-operations';
+import articlesOperations from '../redux/articles/articles-operations';
 
-import ArticlesList from '../../components/ArticlesList/ArticlesList';
+import ArticlesList from '../components/ArticlesList/ArticlesList';
 
 class ArticlesView extends Component {
   componentDidMount() {

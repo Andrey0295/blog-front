@@ -24,9 +24,7 @@ const LoginView = lazy(() =>
 );
 
 const ArticlesView = lazy(() =>
-  import(
-    './views/ArticlesView/ArticlesView' /* webpackChunkName: "articles-view" */
-  ),
+  import('./views/ArticlesView' /* webpackChunkName: "articles-view" */),
 );
 
 const MyArticlesView = lazy(() =>
