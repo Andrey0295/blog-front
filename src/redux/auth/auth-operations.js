@@ -16,6 +16,7 @@ const token = {
 };
 
 const register = registerData => dispatch => {
+  dispatch(authActions.registerRequest());
   axios
     .post('/api/v1/auth', registerData)
     .then(res => {
