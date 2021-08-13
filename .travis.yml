@@ -1,4 +1,9 @@
-# language: node_js
+language: node_js
+deploy:
+  provider: netlify
+  site: <https://kjk-blog-front.netlify.app>
+  auth: <2nFheOjPNN_Lt3hP3wvGiR1sXpBnDSgZgiOo5x2O4SM>
+  edge: true # opt in to dpl v2
 # node_js:
 #   - '4'
 # env:
@@ -10,16 +15,3 @@
 #     packages:
 #       - g++-4.8
 
-language: node_js
-node_js: node
-cache:
-  directories:
-    - node_modules
-env:
-  - CI=true
-deploy:
-  provider: netlify
-  script: netlify deploy -p
-  skip_cleanup: true
-  on:
-    branch: master
