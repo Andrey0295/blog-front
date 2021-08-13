@@ -1,11 +1,25 @@
+# language: node_js
+# node_js:
+#   - '4'
+# env:
+#   - CXX=g++-4.8
+# addons:
+#   apt:
+#     sources:
+#       - ubuntu-toolchain-r-test
+#     packages:
+#       - g++-4.8
+
 language: node_js
-node_js:
-  - '4'
+node_js: node
+cache:
+  directories:
+    - node_modules
 env:
-  - CXX=g++-4.8
-addons:
-  apt:
-    sources:
-      - ubuntu-toolchain-r-test
-    packages:
-      - g++-4.8
+  - CI=true
+deploy:
+  provider: netlify
+  script: netlify deploy -p
+  skip_cleanup: true
+  on:
+    branch: master
