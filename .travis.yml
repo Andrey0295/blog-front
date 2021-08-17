@@ -1,9 +1,3 @@
-# language: node_js
-# deploy:
-#   provider: netlify
-#   auth: _Mw2Gw9m9bPhVdkhHuHvn6QzP6XPnVSw54EdNsW2XWE
-#   dir: 'build/'
-#   edge: true
 language: node_js
 node_js: node
 cache:
