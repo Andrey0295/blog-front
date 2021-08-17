@@ -14,14 +14,6 @@ import articlesReducer from './articles/articles-reducers';
 
 import authReducer from './auth/auth-reducers';
 
-// const middleware = [
-//   ...getDefaultMiddleware({
-//     serializableCheck: {
-//       ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-//     },
-//   }),
-// ];
-
 const authPersistConfig = {
   key: 'auth-key',
   storage,
