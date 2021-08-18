@@ -7,7 +7,6 @@ const ArticlesListItem = ({
   title,
   body,
   onDelete,
-
   articleId,
   isAuthor = false,
   idx,
