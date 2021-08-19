@@ -3,7 +3,7 @@ import articlesActions from './redux/articles/articles-actions';
 
 
 
-const { addArticlesSuccess, changeFilter,editArticlesSuccess,deleteArticlesSuccess } = articlesActions;
+const { addArticlesSuccess, changeFilter, editArticlesSuccess, deleteArticlesSuccess } = articlesActions;
 
 test('should return the initial state', () => {
   expect(articlesReducers(undefined, {})).toEqual(
