@@ -20,7 +20,7 @@ class NetworkError extends Component {
           <h2>Oh No</h2>
           <h3>Something Went Wrong</h3>
           <h3>
-            <a href='https://infinite-escarpment-83664.herokuapp.com/' className={styles.link}>Go to home</a>
+            <a href='https://kjk-blog-front.netlify.app/' className={styles.link}>Go to home</a>
           </h3>
           </div>
       )
