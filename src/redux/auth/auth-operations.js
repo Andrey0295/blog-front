@@ -2,6 +2,9 @@
 import axios from 'axios';
 
 import authActions from './auth-action';
+import networkActions from '../network/network-actions';
+
+const NETWORK_ERROR_MESSAGE = 'Network Error';
 
 axios.defaults.baseURL = 'https://infinite-escarpment-83664.herokuapp.com';
 // axios.defaults.baseURL = 'http://localhost:3000';
@@ -15,6 +18,14 @@ const token = {
   },
 };
 
+const getNetworkError = (err, dispatch) => {
+  if (err.message === NETWORK_ERROR_MESSAGE) {
+    dispatch(networkActions.showNetworkErrorComponent());
+  } else {
+    return;
+  }
+};
+
 const register = registerData => dispatch => {
   dispatch(authActions.registerRequest());
   axios
@@ -24,6 +35,7 @@ const register = registerData => dispatch => {
       dispatch(authActions.registerSuccess(res));
     })
     .catch(error => {
+      getNetworkError(error, dispatch);
       dispatch(
         authActions.registerError(
           error.response?.data?.errors.full_messages[0],
@@ -42,6 +54,7 @@ const login = loginData => dispatch => {
       dispatch(authActions.loginSuccess(res));
     })
     .catch(error => {
+      getNetworkError(error, dispatch);
       dispatch(authActions.loginError(error.response?.data?.errors[0]));
     });
 };
@@ -58,6 +71,7 @@ const logout = () => dispatch => {
       dispatch(authActions.logoutSuccess());
     })
     .catch(error => {
+      getNetworkError(error, dispatch);
       dispatch(authActions.logoutError(error));
     });
 };
@@ -93,7 +107,10 @@ const getCurrentUser = () => (dispatch, getState) => {
       .then(res => {
         dispatch(authActions.getCurrentUserSuccess(res));
       })
-      .catch(err => dispatch(authActions.getCurrentUserError(err)));
+      .catch(err => {
+        getNetworkError(err, dispatch);
+        dispatch(authActions.getCurrentUserError(err));
+      });
   }
 
   const {
@@ -111,7 +128,10 @@ const getCurrentUser = () => (dispatch, getState) => {
     .then(res => {
       dispatch(authActions.getCurrentUserSuccess(res));
     })
-    .catch(err => dispatch(authActions.getCurrentUserError(err)));
+    .catch(err => {
+      getNetworkError(err, dispatch);
+      dispatch(authActions.getCurrentUserError(err));
+    });
 };
 
 export default {

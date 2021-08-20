@@ -1,9 +1,23 @@
 /* eslint-disable import/no-anonymous-default-export */
 import axios from 'axios';
 import actions from './articles-actions';
+import authAction from '../auth/auth-action';
+
+import networkActions from '../network/network-actions';
+
+const NETWORK_ERROR_MESSAGE = 'Network Error';
 
 // axios.defaults.baseURL = 'http://localhost:3000';
 axios.defaults.baseURL = 'https://infinite-escarpment-83664.herokuapp.com';
+
+const getNetworkError = (err, dispatch) => {
+  if (err.message === NETWORK_ERROR_MESSAGE) {
+    dispatch(networkActions.showNetworkErrorComponent());
+    dispatch(authAction.logoutSuccess());
+  } else {
+    return;
+  }
+};
 
 const fetchArticles = () => dispatch => {
   dispatch(actions.fetchArticlesRequest);
@@ -11,7 +25,10 @@ const fetchArticles = () => dispatch => {
   axios
     .get('/articles')
     .then(({ data }) => dispatch(actions.fetchArticlesSuccess(data)))
-    .catch(({ message }) => dispatch(actions.fetchArticlesError(message)));
+    .catch(error => {
+      getNetworkError(error, dispatch);
+      dispatch(actions.fetchArticlesError(error.message));
+    });
 };
 
 const fetchMyArticles = () => dispatch => {
@@ -20,7 +37,10 @@ const fetchMyArticles = () => dispatch => {
   axios
     .get('/my-articles')
     .then(({ data }) => dispatch(actions.fetchMyArticlesSuccess(data)))
-    .catch(({ message }) => dispatch(actions.fetchMyArticlesError(message)));
+    .catch(error => {
+      getNetworkError(error, dispatch);
+      dispatch(actions.fetchMyArticlesError(error.message));
+    });
 };
 
 const addArticle =
@@ -33,7 +53,10 @@ const addArticle =
     axios
       .post('/articles', article)
       .then(({ data }) => dispatch(actions.addArticlesSuccess(data)))
-      .catch(({ message }) => dispatch(actions.addArticlesError(message)));
+      .catch(error => {
+        getNetworkError(error, dispatch);
+        dispatch(actions.addArticlesError(error.message));
+      });
   };
 
 const editArticle =
@@ -51,7 +74,10 @@ const editArticle =
       .then(({ data }) => {
         dispatch(actions.editArticlesSuccess(data));
       })
-      .catch(error => dispatch(actions.editArticlesError(error)));
+      .catch(error => {
+        getNetworkError(error, dispatch);
+        dispatch(actions.editArticlesError(error));
+      });
   };
 
 const deleteArticle = articleId => dispatch => {
@@ -60,7 +86,10 @@ const deleteArticle = articleId => dispatch => {
   axios
     .delete(`/articles/${articleId}`)
     .then(() => dispatch(actions.deleteArticlesSuccess(articleId)))
-    .catch(({ message }) => dispatch(actions.deleteArticlesError(message)));
+    .catch(error => {
+      getNetworkError(error, dispatch);
+      dispatch(actions.deleteArticlesError(error.message));
+    });
 };
 
 export default {

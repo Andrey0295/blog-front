@@ -11,8 +11,8 @@ import {
 } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import articlesReducer from './articles/articles-reducers';
-
 import authReducer from './auth/auth-reducers';
+import networkErrorReducer from './network/network-reducers';
 
 const authPersistConfig = {
   key: 'auth-key',
@@ -24,6 +24,7 @@ const store = configureStore({
   reducer: {
     auth: persistReducer(authPersistConfig, authReducer),
     articles: articlesReducer,
+    network: networkErrorReducer,
   },
   middleware: getDefaultMiddleware({
     serializableCheck: false,
