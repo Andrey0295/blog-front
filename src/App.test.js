@@ -29,8 +29,28 @@ test('should handle an article being added to a list', () => {
           filter: ""
         }
     expect(articlesReducers(previousState, addArticlesSuccess(payload)))
-        .toEqual(expectedState)
+      .toEqual(expectedState)
+    expect(previousState.length).not.toBe(0);
+  
 })
+
+test('should deletes an article', () => {
+  const previousState = {
+    articles: [{
+              id: 0,
+              title: 'Test',
+              body: 'Test test', 
+          }],
+          filter: ""
+  }
+  const payload = 0;
+  const expectedState = {
+          articles: [],
+          filter: ""};
+  expect(articlesReducers(previousState, deleteArticlesSuccess(payload))).toEqual(expectedState)
+})
+
+
 
 
 test('should to return filter value from changeFilterAction', () => {
